@@ -14,6 +14,7 @@ let volume = 1.0;
 let pan = 0.0;
 let LevelSmoothed = 0;
 let appleScale = 1;
+let bgPulse = 0; 
 
 function preload(){
   song = loadSound("Assets/Hip-hop-02-738.mp3");
@@ -141,7 +142,7 @@ function generateTree(x, y, length, angle, level){
   let endX = branch.x2;
   let endY = branch.y2;
   
-  if (level >= 3 && random()<0.2){
+  if (level >= 3 && random() < 0.2) {
     let t = random(0.3,0.9);
     let appleX = lerp(branch.x, branch.x2, t);
     let appleY = lerp(branch.y, branch.y2, t);
@@ -157,7 +158,7 @@ function generateTree(x, y, length, angle, level){
     apples.push(new Apple(appleX, appleY, c));
   }
   /*The transition from "if(level >= 3)" to "apples.push(new Apple(appleX, appleY, c));"
-  is entirely obtained by asking ChatGPT*/
+  is partly obtained by asking ChatGPT, The specific question-and-answer process will be placed in the appendix.*/
 
   generateTree(endX, endY, length* 0.75, angle + angleOffset, level + 1);
   generateTree(endX, endY, length* 0.75, angle - angleOffset, level + 1);
@@ -177,7 +178,7 @@ function setup() {
   button.style("font-size","20px");
   button.style("padding","5px 10px");
 
-  for (let i = 0; i < 1000; i++){
+  for (let i = 0; i < 1500; i++){
     noisePoints.push({
       x: random(-width - 1000, width + 1000),
       y: random(0, 650),
@@ -189,10 +190,16 @@ function setup() {
 
 
 function draw(){
-  //base background
-  background(60,80,120);
+  let level = analyser ? analyser.getLevel() : 0;
+  bgPulse = lerp(bgPulse, level, 0.1); 
+  let t = constrain(map(bgPulse, 0, 0.3, 0, 1), 0, 1) * 1.5; 
+  
+  let baseCol = color(60, 80, 120);
+  let peakCol = color(80, 110, 160);
+  let bgCol = lerpColor(baseCol, peakCol, t);
+  background(bgCol);
 
-if (song.isPlaying()) {
+  if (song.isPlaying()) {
   volume = map(mouseY, height, 0, 0 , 1, true);
   song.setVolume(volume);
 }
@@ -208,7 +215,7 @@ if (song.isPlaying()) {
   noStroke();
   for (let p of noisePoints){
     fill(p.c[0],p.c[1],p.c[2],p.c[3]);
-    rect(p.x, p.y, 100, 2);
+    rect(p.x, p.y, 2, 100);
   }
 
   fill(40,140,90);
@@ -305,7 +312,7 @@ if (song.isPlaying()) {
   }else{
     text("Press SPACE to change gravity (now ↑ ↑ ↑)",20,785);
   }
-    text("- Let Newton be confused ! ! ! -",240,30);
+    text("- Dancing in the thunderstorm -",240,30);
     pop();
 }
 
