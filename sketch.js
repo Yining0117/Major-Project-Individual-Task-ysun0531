@@ -9,13 +9,13 @@ let ground = 750;
 let topY = 20;
 let noisePoints = [];
 let scaleFactor;
-let song, analyser;
+let song, analyser;  
 let volume = 1.0;
-let pan = 0.0;
 let LevelSmoothed = 0;
 let appleScale = 1;
 let bgPulse = 0; 
 
+//preload song.
 function preload(){
   song = loadSound("Assets/Hip-hop-02-738.mp3");
 }
