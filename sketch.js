@@ -12,6 +12,8 @@ let scaleFactor;
 let song, analyser;
 let volume = 1.0;
 let pan = 0.0;
+let LevelSmoothed = 0;
+let appleScale = 1;
 
 function preload(){
   song = loadSound("Assets/Hip-hop-02-738.mp3");
@@ -93,7 +95,7 @@ class Apple {
       this.dropSpeed += gravity * gravityDirection;
       this.y += this.dropSpeed;
     
-    if(gravityDirection === 1 && this.y >= ground){
+    if ( gravityDirection === 1 && this.y >= ground) {
       this.y = ground;
       this.state = "landed";
       this.dropSpeed = 0;
@@ -121,10 +123,10 @@ class Apple {
     let drawY = this.y;
     if (this.state === "waiting") {
       const t = frameCount * this.swaySpeed + this.swayPhase;
-      drawX += sin(t) * this.swayRate;}
+      drawX += sin(t) * this.swayRate;
+    }
 
-    
-      ellipse(drawX, drawY, 40, 40);
+      ellipse(drawX, drawY, 40 * appleScale, 40 * appleScale);
   }
 }
 
@@ -170,8 +172,10 @@ function setup() {
   analyser.setInput(song);
 
   let button = createButton("Play/Pause");
-  button.position(100,20);
+  button.position(25,15);
   button.mousePressed(PlayPause);
+  button.style("font-size","20px");
+  button.style("padding","5px 10px");
 
   for (let i = 0; i < 1000; i++){
     noisePoints.push({
@@ -187,6 +191,15 @@ function setup() {
 function draw(){
   //base background
   background(60,80,120);
+
+if (song.isPlaying()) {
+  volume = map(mouseY, height, 0, 0 , 1, true);
+  song.setVolume(volume);
+}
+
+  let levelNow = analyser.getLevel();
+  LevelSmoothed = lerp (LevelSmoothed, levelNow, 0.2);
+  appleScale = map (LevelSmoothed, 0, 0.3, 0.9, 1.8, true);
 
   push();
   scale(scaleFactor);
@@ -278,7 +291,7 @@ function draw(){
   for (let branch of branches ){
     branch.draw(); 
   }
-
+  
   for (let a of apples){
     a.update();
     a.draw();
