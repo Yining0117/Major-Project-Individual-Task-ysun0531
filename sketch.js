@@ -14,7 +14,7 @@ let volume = 1.0;
 let LevelSmoothed = 0;
 let appleScale = 1;
 let bgPulse = 0; 
-let trackButton;
+let changeMusicButton;
 
 
 //preload song.
@@ -172,14 +172,22 @@ function setup() {
   frameRate(60);  
   scaleFactor = min(windowWidth/ DESIGN_W, windowHeight/ DESIGN_H);
 
+  currentSong = song1;
+
   analyser = new p5.Amplitude();
-  analyser.setInput(song);
+  analyser.setInput(currentSong);
 
   let button = createButton("Play/Pause");
   button.position(25,15);
   button.mousePressed(PlayPause);
   button.style("font-size","20px");
   button.style("padding","5px 10px");
+
+  changeMusicButton = createButton("music 1 ");
+  changeMusicButton.position(25,60);
+  changeMusicButton.mousePressed(changeMusic);
+  changeMusicButton.style("font-size","20px");
+  changeMusicButton.style("padding","5px 10px");
 
   for (let i = 0; i < 1500; i++){
     noisePoints.push({
@@ -202,9 +210,9 @@ function draw(){
   let bgCol = lerpColor(baseCol, peakCol, t);
   background(bgCol);
 
-  if (song.isPlaying()) {
+  if (currentSong && currentSong.isPlaying()) {
   volume = map(mouseY, height, 0, 0 , 1, true);
-  song.setVolume(volume);
+  currentSong.setVolume(volume);
 }
 
   let levelNow = analyser.getLevel();
@@ -330,10 +338,36 @@ function draw(){
 }
 
 function PlayPause(){
-  if (song.isPlaying()){
-    song.stop();
+  if (!currentSong) return;
+
+  if (currentSong.isPlaying()){
+    currentSong.stop();
   } else {
-    song.loop();
+    currentSong.loop();
+    currentSong.setVolume(volume); 
+  }
+}
+function changeMusic(){
+  if (!song1 || !song2) return;
+
+  let wasPlaying = currentSong && currentSong.isPlaying();
+
+  if (song1.isPlaying()) song1.stop();
+  if (song2.isPlaying()) song2.stop();
+
+  if (currentSong === song1){
+    currentSong = song2;
+    changeMusicButton.html("music2");
+  } else {
+    currentSong = song1;
+    changeMusicButton.html("music1");
+  }
+
+  analyser.setInput(currentSong);
+
+  if (wasPlaying){
+    currentSong.loop();
+    currentSong.setVolume(volume);
   }
 }
 
