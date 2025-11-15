@@ -357,10 +357,10 @@ function changeMusic(){
 
   if (currentSong === song1){
     currentSong = song2;
-    changeMusicButton.html("music2");
+    changeMusicButton.html("music 2");
   } else {
     currentSong = song1;
-    changeMusicButton.html("music1");
+    changeMusicButton.html("music 1");
   }
 
   analyser.setInput(currentSong);
