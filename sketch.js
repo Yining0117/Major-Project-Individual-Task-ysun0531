@@ -9,15 +9,18 @@ let ground = 750;
 let topY = 20;
 let noisePoints = [];
 let scaleFactor;
-let song, analyser;  
+let song1, song2, currentSong, analyser;  
 let volume = 1.0;
 let LevelSmoothed = 0;
 let appleScale = 1;
 let bgPulse = 0; 
+let trackButton;
+
 
 //preload song.
 function preload(){
-  song = loadSound("Assets/Hip-hop-02-738.mp3");
+  song1 = loadSound("Assets/Hip-hop-02-738.mp3");
+  song2 = loadSound("Assets/hazy-after-hours-132.mp3");
 }
 
 class Segment{
