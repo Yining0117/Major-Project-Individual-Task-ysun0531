@@ -211,11 +211,21 @@ function draw(){
   push();
   scale(scaleFactor);
   translate((width / scaleFactor - DESIGN_W)/ 2, (height/ scaleFactor - DESIGN_H)/2);
+    
+  /*Use the volume of the music to control the length of the "raindrops".*/
+    let noiceLevel = analyser.getLevel();                     
+    let lineScale = map(noiceLevel, 0, 0.4, 100, 200);         
+    let angle = radians(80);
 
-  noStroke();
-  for (let p of noisePoints){
-    fill(p.c[0],p.c[1],p.c[2],p.c[3]);
-    rect(p.x, p.y, 2, 100);
+    for (let p of noisePoints){
+    stroke(p.c[0], p.c[1], p.c[2], p.c[3]);
+    strokeWeight(2);
+
+    let len = lineScale;
+    let x2 = p.x + cos(angle) * len;
+    let y2 = p.y + sin(angle) * len;
+
+    line(p.x, p.y, x2, y2);
   }
 
   fill(40,140,90);
