@@ -9,7 +9,7 @@ let ground = 750;
 let topY = 20;
 let noisePoints = [];
 let scaleFactor;
-let song1, song2, currentSong, analyser;  
+let song1, song2, currentSong, analyser; // for future control. 
 let volume = 1.0;
 let LevelSmoothed = 0;
 let appleScale = 1;
@@ -177,11 +177,11 @@ function setup() {
   frameRate(60);  
   // Keep 600* 800 proportion across screens.  
   scaleFactor = min(windowWidth/ DESIGN_W, windowHeight/ DESIGN_H); 
-
+  // The music1 is played by default.
   currentSong = song1;
   analyser = new p5.Amplitude();
   analyser.setInput(currentSong);
-
+  // Create play/Pause button, and music1/music2 button. 
   let button = createButton("Play/Pause");
   button.position(25,15);
   button.mousePressed(PlayPause);
@@ -343,7 +343,7 @@ function draw(){
     text("- Dancing in the thunderstorm -",240,30);
     pop();
 }
-
+// Add playPause() function to control the playing and pausing of music.
 function PlayPause(){
   if (!currentSong) return;
 
@@ -358,7 +358,7 @@ function changeMusic(){
   if (!song1 || !song2) return;
 
   let wasPlaying = currentSong && currentSong.isPlaying();
-
+// When click stop all songs.
   if (song1.isPlaying()) song1.stop();
   if (song2.isPlaying()) song2.stop();
 
