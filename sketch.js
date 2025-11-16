@@ -207,7 +207,7 @@ function setup() {
 
 // Main draw loop
 function draw(){
-  //base blue background.
+  // Use music level to control the color of background.
   let level = analyser ? analyser.getLevel() : 0;
   bgPulse = lerp(bgPulse, level, 0.1); 
   let t = constrain(map(bgPulse, 0, 0.3, 0, 1), 0, 1) * 1.5; 
