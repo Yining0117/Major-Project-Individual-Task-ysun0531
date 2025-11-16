@@ -29,8 +29,8 @@ Noise points: I changed the direction of the noise, tilting the horizontal noise
 2.4.1 Audio setup with p5.js
 
 I use the `p5.Sound` library (which is not part of the core p5.js but an official extension).
-```js
-- In `preload()` I load two audio files:
+
+In `preload()` I load two audio files:
 
 ```js
   function preload(){
@@ -38,11 +38,106 @@ I use the `p5.Sound` library (which is not part of the core p5.js but an officia
     song2 = loadSound("Assets/hazy-after-hours-132.mp3");
   }
 ```
+In setup() I set currentSong = song1 and create an amplitude analyser:
+```js
+currentSong = song1;
+analyser = new p5.Amplitude();
+analyser.setInput(currentSong);
+```
 
-## 3 Appendix
-### 3.1 Source of musics
+2.4.2 Play/Pause and volume control
 
-### 3.2 ChatGPT Q & A about creating the musci switch button
+At first, I created the button and then set the style for it to maintain visual consistency.
+
+```js
+let button = createButton("Play/Pause");
+button.position(25,15);
+button.mousePressed(PlayPause);
+button.style("font-size","20px");
+button.style("padding","5px 10px");
+```
+
+Then I added the `playPause()` function to control the switching of songs.
+
+```js
+function PlayPause(){
+  if (!currentSong) return;
+
+  if (currentSong.isPlaying()){
+    currentSong.stop();
+  } else {
+    currentSong.loop();
+    currentSong.setVolume(volume); 
+  }
+}
+```
+
+In `draw()`, when the song is playing, vertical mouse position controls the volume:
+
+```js
+if (currentSong && currentSong.isPlaying()) {
+  volume = map(mouseY, height, 0, 0, 1, true);
+  currentSong.setVolume(volume);
+}
+```
+
+2.4.3 Audio reaction of apples
+
+The amplitude is smoothed with lerp to avoid jitter:
+
+```js
+let levelNow = analyser.getLevel();
+LevelSmoothed = lerp(LevelSmoothed, levelNow, 0.2);
+appleScale = map(LevelSmoothed, 0, 0.3, 0.9, 1.8, true);
+```
+
+2.4.4 Audio reaction of "rain" (noisePoints)
+
+The background “rain” is stored as an array of `noisePoints`, each with a position and colour.
+
+In `draw()`, their lengths are mapped to the current amplitude:
+
+```js
+let noiceLevel = analyser.getLevel();                     
+let lineScale = map(noiceLevel, 0, 0.4, 100, 200);         
+let angle = radians(80);
+
+for (let p of noisePoints){
+  stroke(p.c[0], p.c[1], p.c[2], p.c[3]);
+  strokeWeight(2);
+
+  let len = lineScale;
+  let x2 = p.x + cos(angle) * len;
+  let y2 = p.y + sin(angle) * len;
+
+  line(p.x, p.y, x2, y2);
+}
+```
+
+2.4.5 Colour change of Background
+
+I used map to add an other blue in the original color.
+
+```js
+let level = analyser ? analyser.getLevel() : 0;
+bgPulse = lerp(bgPulse, level, 0.1); 
+let t = constrain(map(bgPulse, 0, 0.3, 0, 1), 0, 1) * 1.5; 
+
+let baseCol = color(60, 80, 120);
+let peakCol = color(80, 110, 160);
+let bgCol = lerpColor(baseCol, peakCol, t);
+background(bgCol);
+```
+
+## 3 Reference
+### 3.1 Code reference 
+[constrain()](https://p5js.org/reference/p5/constrain/)
+
+### 3.2 Resource of musics
+
+## 4 Appendix
+
+### ChatGPT Q & A about creating the musci switch button
 This appendix documents the conversation with ChatGPT that helped me implement the **music-switching button** in my interactive artwork.
 
 Since the original version was not asked in English, here I have placed a summary of the translated dialogue process to clarify my use of AI.
