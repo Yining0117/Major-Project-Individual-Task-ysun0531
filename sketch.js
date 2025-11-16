@@ -327,11 +327,11 @@ function draw(){
   
   noStroke();
   fill(255);
-  textSize(25);
+  textSize(15);
   if(gravityDirection === 1){
-    text("Press SPACE to change gravity (now ↓ ↓ ↓)",20,785);
+    text("Press SPACE to change gravity (now ↓ ↓ ↓) / Mouse up & down adjusts volume.",20,785);
   }else{
-    text("Press SPACE to change gravity (now ↑ ↑ ↑)",20,785);
+    text("Press SPACE to change gravity (now ↑ ↑ ↑) / Mouse up & down adjusts volume.",20,785);
   }
     text("- Dancing in the thunderstorm -",240,30);
     pop();
