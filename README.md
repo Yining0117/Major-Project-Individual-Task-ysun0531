@@ -28,7 +28,7 @@ My inspiration comes from many works of art. Below, I will introduce some of the
 1. Singin' in the Rain
 "Singin 'in the Rain" is a classic 1952 musical film that tells the story of Hollywood's transition from the silent film era to the sound film era. The scene where the protagonist danced in the rain left a deep impression on me. This reminds me of my love for life and freedom. Inspired by this, I thought of the scene where apple trees were "dancing" in the heavy rain.
 
-![an example](Assets/sining%in%the%rain.png)
+![an example](Assets/sining-in-the-rain.png)
 
 
 2.
