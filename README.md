@@ -26,7 +26,6 @@ Noise points: I changed the direction of the noise, tilting the horizontal noise
 
 ## Appendix
 ### A-ChatGpt Q & A about creating the musci switch button.
-# Appendix A — ChatGPT Q&A About Creating the Music Switch Button
 This appendix documents the conversation with ChatGPT that helped me implement the **music-switching button** in my interactive artwork.
 
 Since the original version was not asked in English, here I have placed a summary of the translated dialogue process to clarify my use of AI.
