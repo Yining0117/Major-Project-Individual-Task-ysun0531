@@ -1,5 +1,5 @@
 ## Dancing Apple Tree in a Thunderstorm
-### 1 How to interact with the work.
+### 1 How to interact with the work
 1. Open the project in a browser.
 2. Click "Play / Pause" to play pr pause the music.
 3. Click "music1" can switch the song to "Music 2", and click it again can switch back to "music1".
@@ -12,8 +12,9 @@ When no buttons are clicked, apples randomly appear on the 3rd to 4th level bran
 If the space bar is pressed, the apple will immediately return to the branch and wait for 2 seconds before falling upwards. If the space bar is pressed again, the apple will immediately return to the branch and fall downwards after 2 seconds. 
 Click the "play/pause" button to start playing music1. Click "music1" to switch the song to "music2", and vice versa to switch back to music1. When you move the mouse up in the interface, the music volume increases; when you move it down, the music volume decreases. The background color, the size of the apple, and the length of the "raindrops" will change along with the music. At this point, click the "play/pause" button to stop the music and the animation.
 
-### 2 Details of my individual approach.
-#### 2.1 Divison of labor: My individual task is about AUDIO.
+### 2 Details of my individual approach
+#### 2.1 Divison of labor 
+My individual task is about AUDIO.
 #### 2.2 The unique from other group menbers
 I mainly changed the size of the apple, the background color and the noise in the background.
 
@@ -22,10 +23,26 @@ Apple: I changed the size of the apple, making it change size along with the mus
 Background color: The background color changes along with the music. Here, I chose a brighter blue color, so in the actual effect, it looks more like "lightning".
 
 Noise points: I changed the direction of the noise, tilting the horizontal noise by 80° to imitate "rain", and I also made the length of the noise change along with the music to imitate the visual effect of rain.
+#### 2.3 Source of inspiration
 
+#### 2.4 Technical explanation of my individual code
+2.4.1 Audio setup with p5.js
 
-## Appendix
-### A-ChatGPT Q & A about creating the musci switch button.
+I use the `p5.Sound` library (which is not part of the core p5.js but an official extension).
+```js
+- In `preload()` I load two audio files:
+
+```js
+  function preload(){
+    song1 = loadSound("Assets/Hip-hop-02-738.mp3");
+    song2 = loadSound("Assets/hazy-after-hours-132.mp3");
+  }
+```
+
+## 3 Appendix
+### 3.1 Source of musics
+
+### 3.2 ChatGPT Q & A about creating the musci switch button
 This appendix documents the conversation with ChatGPT that helped me implement the **music-switching button** in my interactive artwork.
 
 Since the original version was not asked in English, here I have placed a summary of the translated dialogue process to clarify my use of AI.
@@ -144,6 +161,4 @@ if (wasPlaying) {
   currentSong.setVolume(volume);
 }
 ```
-
-Without this, the new track plays at full volume by default.
 
