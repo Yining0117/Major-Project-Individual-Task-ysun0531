@@ -14,7 +14,7 @@ Click the "play/pause" button to start playing music1. Click "music1" to switch 
 
 ### 2 Details of my individual approach
 #### 2.1 Divison of labor 
-My individual task is about AUDIO.
+My individual task is about **AUDIO**.
 #### 2.2 The unique from other group menbers
 I mainly changed the size of the apple, the background color and the noise in the background.
 
@@ -132,6 +132,7 @@ background(bgCol);
 ## 3 Reference
 ### 3.1 Code reference 
 [constrain()](https://p5js.org/reference/p5/constrain/)
+[lerpColor()](https://p5js.org/reference/p5/lerpColor/)
 
 
 ### 3.2 Resource of musics
