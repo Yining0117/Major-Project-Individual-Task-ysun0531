@@ -48,7 +48,7 @@ In `preload()` I load two audio files:
     song2 = loadSound("Assets/hazy-after-hours-132.mp3");
   }
 ```
-In setup() I set currentSong = song1 and create an amplitude analyser:
+In `setup()` I set currentSong = song1 and create an amplitude analyser:
 ```js
 currentSong = song1;
 analyser = new p5.Amplitude();
@@ -148,6 +148,7 @@ background(bgCol);
 
 ### 3.2 Resource of music
 Music1: Hip Hop 02 
+
 Music2: Hazy After Hours
 
 All the music is from the free music website [mixkit](https://mixkit.co/free-stock-music/).
