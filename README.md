@@ -24,7 +24,7 @@ Background color: The background color changes along with the music. Here, I cho
 
 Noise points: I changed the direction of the noise, tilting the horizontal noise by 80° to imitate "rain", and I also made the length of the noise change along with the music to imitate the visual effect of rain.
 #### 2.3 Inspiration
-My inspiration comes from many works of art. Below, I will introduce some of the main sources of inspiration.
+My inspiration comes from some art works. Below, I introduce some of the main sources of inspiration.
 1. Singin' in the Rain
 "Singin 'in the Rain" is a classic 1952 musical film that tells the story of Hollywood's transition from the silent film era to the sound film era. The scene where the protagonist danced in the rain left a deep impression on me. This reminds me of my love for life and freedom. Inspired by this, I thought of the scene where apple trees were "dancing" in the heavy rain.
 
