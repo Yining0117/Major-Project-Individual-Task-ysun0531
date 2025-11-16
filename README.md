@@ -132,10 +132,15 @@ background(bgCol);
 ## 3 Reference
 ### 3.1 Code reference 
 [constrain()](https://p5js.org/reference/p5/constrain/)
+
 [lerpColor()](https://p5js.org/reference/p5/lerpColor/)
 
 
 ### 3.2 Resource of musics
+Music1: Hip Hop 02 
+Music2: Hazy After Hours
+
+All the music is from the free music website [mixkit](https://mixkit.co/free-stock-music/).
 
 ## 4 Appendix
 
