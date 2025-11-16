@@ -23,7 +23,12 @@ Apple: I changed the size of the apple, making it change size along with the mus
 Background color: The background color changes along with the music. Here, I chose a brighter blue color, so in the actual effect, it looks more like "lightning".
 
 Noise points: I changed the direction of the noise, tilting the horizontal noise by 80° to imitate "rain", and I also made the length of the noise change along with the music to imitate the visual effect of rain.
-#### 2.3 Source of inspiration
+#### 2.3 Inspiration
+My inspiration comes from many works of art. Below, I will introduce some of the main sources of inspiration.
+1. Singin' in the Rain
+"Singin 'in the Rain" is a classic 1952 musical film that tells the story of Hollywood's transition from the silent film era to the sound film era. The scene where the protagonist danced in the rain left a deep impression on me. This reminds me of my love for life and freedom. Inspired by this, I thought of the scene where apple trees were "dancing" in the heavy rain.
+![Singin' in the Rain](Assets/sining in the rain.png)
+2.
 
 #### 2.4 Technical explanation of my individual code
 2.4.1 Audio setup with p5.js
