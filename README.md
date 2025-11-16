@@ -25,7 +25,7 @@ Noise points: I changed the direction of the noise, tilting the horizontal noise
 
 
 ## Appendix
-### A-ChatGpt Q & A about creating the musci switch button.
+### A-ChatGPT Q & A about creating the musci switch button.
 This appendix documents the conversation with ChatGPT that helped me implement the **music-switching button** in my interactive artwork.
 
 Since the original version was not asked in English, here I have placed a summary of the translated dialogue process to clarify my use of AI.
@@ -90,6 +90,7 @@ function changeMusic() {
     currentSong.setVolume(volume);
   }
 }
+```
 
 Q2 — Me
 
@@ -124,9 +125,9 @@ A3 — ChatGPT
 
 This happens because the amplitude analyzer was still listening to the old song.
 You must update the analyzer input:
-
+```js
 analyser.setInput(currentSong);
-
+```
 This line must run after switching currentSong.
 
 Q4 — Me
@@ -137,11 +138,12 @@ A4 — ChatGPT
 
 After switching songs, you should restore the previous volume:
 
+```js
 if (wasPlaying) {
   currentSong.loop();
   currentSong.setVolume(volume);
 }
-
+```
 
 Without this, the new track plays at full volume by default.
 
