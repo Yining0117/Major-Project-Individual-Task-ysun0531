@@ -136,7 +136,7 @@ background(bgCol);
 [lerpColor()](https://p5js.org/reference/p5/lerpColor/)
 
 
-### 3.2 Resource of musics
+### 3.2 Resource of music
 Music1: Hip Hop 02 
 Music2: Hazy After Hours
 
