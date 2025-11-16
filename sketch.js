@@ -22,7 +22,7 @@ function preload(){
   song1 = loadSound("Assets/Hip-hop-02-738.mp3");
   song2 = loadSound("Assets/hazy-after-hours-132.mp3");
 }
-
+//Segment Class (Tree Branch).
 class Segment{
   constructor(x,y,length,angle,level){
     this.x = x;
@@ -30,7 +30,7 @@ class Segment{
     this.length = length;
     this.angle = angle;
     this.level = level;
-
+  //Different thickness for different branch level.
     if(this.level === 1){
       this.thickness = 15;
     } else if(this.level === 2){
@@ -40,18 +40,18 @@ class Segment{
     } else{
       this.thickness = 4
     }
-
+  // Small waving animation values.
     this.swayAmp = random(1,3);
     this.swaySpeed = random(0.2, 0.2);
-
+  // Calculate the end point of the branch based on angle.
     this.x2 = this.x + cos(this.angle) * this.length;
     this.y2 = this.y - sin(this.angle) * this.length;
   }
 
   
   draw(){
+    // Set branches' color
     stroke(0);
-    // ↑ branches' color
     strokeWeight(this.thickness);
     
     let sway = sin(frameCount* this.swaySpeed + this.y * 0.05)* this.swayAmp;
@@ -63,7 +63,7 @@ class Segment{
     //let branches silghtly wave.
   }
 }
-
+// Apple class(generate, sway, drop)
 class Apple {
   constructor(x,y,color){
     this.stratX = x;
@@ -74,13 +74,13 @@ class Apple {
     this.color = color;
     this.state = "waiting";
     this.timer = 0; 
-
+   // Slight left and right swing while apple are hanging.
     this.swayRate = random(1.0, 3.0);    
     this.swaySpeed = random(0.5, 0.3); 
     this.swayPhase = random(0, TWO_PI); 
   }     
   reset(){
-    //back to the tree.
+    // Reset apple to initial position.
     this.x = this.stratX;
     this.y = this.stratY;
     this.dropSpeed = 0;
@@ -89,21 +89,24 @@ class Apple {
     this.swayPhase = random(0, TWO_PI);
   }
   update(){
+    // Waiting for 2 seconds before falling.
     if (this.state ==="waiting"){
       this.timer++;
       if(this.timer > 120){
         this.state = "falling";
         this.timer = 0;
       }
+      // Apply gravity.
     } else if (this.state ==="falling"){
       this.dropSpeed += gravity * gravityDirection;
       this.y += this.dropSpeed;
-    
+      // Hit ground.
     if ( gravityDirection === 1 && this.y >= ground) {
       this.y = ground;
       this.state = "landed";
       this.dropSpeed = 0;
       this.timer = 0;
+      // Hit top(when reversed gravity)
     } else if (gravityDirection === -1 && this.y <=topY){
       this.y = topY;
       this.state = "landed";
@@ -111,6 +114,7 @@ class Apple {
       this.timer = 0;
     }
   }
+    // Rest for 2 seconds then return to tree.
       else if (this.state === "landed"){
         this.timer++;
         if(this.timer > 120){
@@ -125,6 +129,7 @@ class Apple {
     
     let drawX = this.x;
     let drawY = this.y;
+    // Slight sway when hanging.
     if (this.state === "waiting") {
       const t = frameCount * this.swaySpeed + this.swayPhase;
       drawX += sin(t) * this.swayRate;
@@ -133,7 +138,7 @@ class Apple {
       ellipse(drawX, drawY, 40 * appleScale, 40 * appleScale);
   }
 }
-
+//Recursive Tree Generator
 function generateTree(x, y, length, angle, level){
   if (length < 40) return;
   
@@ -144,7 +149,7 @@ function generateTree(x, y, length, angle, level){
 
   let endX = branch.x2;
   let endY = branch.y2;
-  
+   //Random chance to grow an apple on highter level branch.
   if (level >= 3 && random() < 0.2) {
     let t = random(0.3,0.9);
     let appleX = lerp(branch.x, branch.x2, t);
@@ -170,10 +175,10 @@ function generateTree(x, y, length, angle, level){
 function setup() {
   createCanvas(windowWidth, windowHeight); 
   frameRate(60);  
-  scaleFactor = min(windowWidth/ DESIGN_W, windowHeight/ DESIGN_H);
+  // Keep 600* 800 proportion across screens.  
+  scaleFactor = min(windowWidth/ DESIGN_W, windowHeight/ DESIGN_H); 
 
   currentSong = song1;
-
   analyser = new p5.Amplitude();
   analyser.setInput(currentSong);
 
@@ -188,7 +193,7 @@ function setup() {
   changeMusicButton.mousePressed(changeMusic);
   changeMusicButton.style("font-size","20px");
   changeMusicButton.style("padding","5px 10px");
-
+  // Generate background noise lines.
   for (let i = 0; i < 1500; i++){
     noisePoints.push({
       x: random(-width - 1000, width + 1000),
@@ -196,11 +201,13 @@ function setup() {
       c:[random(100,180), random(150,200), random(200,255), random(80,150)]
     });
   }
+  // Generate a full recursive tree.
   generateTree(300, 650, 200, PI / 2, 1);
 }
 
-
+// Main draw loop
 function draw(){
+  //base blue background.
   let level = analyser ? analyser.getLevel() : 0;
   bgPulse = lerp(bgPulse, level, 0.1); 
   let t = constrain(map(bgPulse, 0, 0.3, 0, 1), 0, 1) * 1.5; 
@@ -222,7 +229,7 @@ function draw(){
   push();
   scale(scaleFactor);
   translate((width / scaleFactor - DESIGN_W)/ 2, (height/ scaleFactor - DESIGN_H)/2);
-    
+  // Draw background noise.
   /*Use the volume of the music to control the length of the "raindrops".*/
     let noiceLevel = analyser.getLevel();                     
     let lineScale = map(noiceLevel, 0, 0.4, 100, 200);         
@@ -238,7 +245,7 @@ function draw(){
 
     line(p.x, p.y, x2, y2);
   }
-
+  // Ground.
   fill(40,140,90);
   rect(0,650,600,100);
   stroke(0);
@@ -247,14 +254,14 @@ function draw(){
   rect(0,650,600,100);
   noStroke();
 
-  //yellow base
+  // Yellow base
   fill(240,210,60);
   stroke(0);
   strokeWeight(10);
   rect(125,625,350,75);
   noStroke();
 
-  //colorfull rects
+  // Colorfull rects
   const colors = [
     color(240,210,60),
     color(240,70,70),
@@ -315,16 +322,16 @@ function draw(){
     fill(255,255,255,random(10,40));
     rect(random(125,475),random(625,700), 1, 1);
   }
-
+  // Draw all branches.
   for (let branch of branches ){
     branch.draw(); 
   }
-  
+  // Draw and update all apples.
   for (let a of apples){
     a.update();
     a.draw();
   }
-  
+  // Display gravity control text.
   noStroke();
   fill(255);
   textSize(15);
@@ -362,7 +369,8 @@ function changeMusic(){
     currentSong = song1;
     changeMusicButton.html("music 1");
   }
-
+/* This code (about change music) was obtained by referring to the suggestions of ChatGPT.
+I put the communication process in the Redame appendix.*/
   analyser.setInput(currentSong);
 
   if (wasPlaying){
@@ -370,12 +378,12 @@ function changeMusic(){
     currentSong.setVolume(volume);
   }
 }
-
+// Make the canvas size match the screen size.
 function fitWidow(){
   resizeCanvas(windowWidth,windowHeight);
   scaleFactor = min(windowWidth / DESIGN_W, windowHeight/ DESIGN_H);
 }
-
+// Add keypress to control the direction of gravity.
 function keyPressed(){
   if (key === ' '){
     gravityDirection *= -1;
